@@ -39,6 +39,8 @@ dependencies:
   fl_country_code_picker: ^0.1.6+1
   pinput: ^3.0.1
   page_view_dot_indicator: ^2.3.0
+  google_maps_flutter: ^2.5.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

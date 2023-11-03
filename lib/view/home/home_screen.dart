@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carwash/utilities/constants.dart';
+import 'package:flutter_carwash/view/home/car_selection_page.dart';
+import 'package:flutter_carwash/view/home/location_selection.dart';
+import 'package:flutter_carwash/view/home/payment_screen.dart';
+import 'package:flutter_carwash/view/home/service_selection.dart';
+import 'package:flutter_carwash/view/home/station_selection.dart';
+import 'package:flutter_carwash/widgets/custom_button.dart';
+import 'package:flutter_carwash/widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
@@ -33,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Expanded(
               child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
                 controller: _pageController,
                 onPageChanged: (page) {
                   setState(() {
@@ -43,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   CarSelectionPage(),
                   LocationPage(),
                   StationSelectionPage(),
-                  ServicesPage(),
+                  ServicesSelectionScreen(),
                   PaymentPage(),
                 ],
               ),
@@ -66,100 +74,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomButton(
+                    buttonText: 'Back',
+                    onTap: () {
+                      _pageController.jumpToPage(selectedPage - 1);
+                    },
+                  ),
+                  CustomTextWidget(
+                    text: ('Step: ${(selectedPage + 1)} / $pageCount'),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  CustomButton(
+                    buttonText: 'Next',
+                    onTap: () {
+                      _pageController.jumpToPage(selectedPage + 1);
+                    },
+                  )
+                ],
+              ),
+            ),
             SizedBox(
               height: context.height * 0.05,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CarSelectionPage extends StatelessWidget {
-  const CarSelectionPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SafeArea(
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Scaffold(
-          backgroundColor: Colors.greenAccent,
-          body: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Center(
-              child: Text('Select your car'),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class LocationPage extends StatelessWidget {
-  const LocationPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Scaffold(
-        backgroundColor: Colors.deepPurple,
-        body: Center(
-          child: Text('Choose your location'),
-        ),
-      ),
-    );
-  }
-}
-
-class StationSelectionPage extends StatelessWidget {
-  const StationSelectionPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Scaffold(
-        backgroundColor: Colors.amberAccent,
-        body: Center(
-          child: Text('Select a station'),
-        ),
-      ),
-    );
-  }
-}
-
-class ServicesPage extends StatelessWidget {
-  const ServicesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Scaffold(
-        backgroundColor: Colors.green,
-        body: Center(
-          child: Text('Choose your services'),
-        ),
-      ),
-    );
-  }
-}
-
-class PaymentPage extends StatelessWidget {
-  const PaymentPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Scaffold(
-        backgroundColor: Colors.orange,
-        body: Center(
-          child: Text('Make a payment'),
         ),
       ),
     );
